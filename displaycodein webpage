@@ -1,0 +1,99 @@
+<!Doctype html>
+<html>
+<head> <title> helllo</title></head>
+<body>
+    <script>
+          var entityMap = {
+            "&": "&",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': '&quot;',
+            "'": '&#39;',
+            "/": '&#x2F;'
+          };
+        
+          function escapeHtml(string) {
+            return String(string).replace(/[&<>"'\/]/g, function (s) {
+				
+			  return entityMap[s];
+            });
+          }
+        
+        //document.addEventListener("DOMContentLoaded", init, false);
+
+        window.onload = function init() 
+        {
+            var codeblock = document.querySelectorAll("pre code");
+                    
+            if(codeblock.length) 
+            {
+                for(var i=0, len=codeblock.length; i<len; i++) 
+                {
+                    var dom = codeblock[i];
+                    var html = dom.innerHTML;
+                    html = escapeHtml(html);
+                    dom.innerHTML = html;
+                }
+            }
+        }
+
+    </script>
+    <pre>
+        <code>
+            <!doctype html>
+            <html>
+                <body>
+                    
+                    Hello QNimate!!!
+                </body>
+            </html>
+        </code>
+    </pre>
+        
+    <pre>
+        <code>
+            <!-- Browser thinks iostream.h is a tag while creating DOM and looks for end tag. As it did not find it, it will add a ending iostream.h tag -->
+            #include <iostream.h>
+            
+            using namespace std;
+            
+            int main()
+            {
+                cout<<"Hello QNimate";
+            }
+        </code>
+    </pre>
+	<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "myDB";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "SELECT Q, op FROM a1";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  // output data of each row
+  while($row = mysqli_fetch_assoc($result)) {
+   // echo "Question : " "<pre><code>". $row["Q"]."</code></pre>" - option: " . $row["op"]. "<br>";
+   //echo "<pre>".$row['Q']."</pre>";
+   //echo "<div>".$row['Q']."</div>";
+
+   echo "<pre><code>".$row['Q']."</code></pre>";
+   
+  }
+} else {
+  echo "0 results";
+}
+
+mysqli_close($conn);
+?>
+</body>
+</html>
